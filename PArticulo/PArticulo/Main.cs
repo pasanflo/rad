@@ -18,19 +18,29 @@ namespace PArticulo
 			
 			string command = "SELECT * FROM articulo";
 			
+			string change = "UPDATE articulo SET nombre={1} where id=1";
+			
 			MySqlConnection mySqlConnection = new MySqlConnection(connectionString); //Crear conexión a bd
 			
 			mySqlConnection.Open(); //Abrimos la conexión
 			
 			MySqlCommand mySqlCommand = mySqlConnection.CreateCommand(); //Creamos comando SQL
+			mySqlCommand.CommandText = change; //Cambiamos el texto del comando SQL por command.
+			
+			MySqlCommand mySqlCommandChange = mySqlConnection.CreateCommand(); //Creamos comando SQL
 			mySqlCommand.CommandText = command; //Cambiamos el texto del comando SQL por command.
 			
 			MySqlDataReader mySqlDataReader; //Creamos un DataReader
 			mySqlDataReader = mySqlCommand.ExecuteReader(); // Nos devuelve un mySqlDataReader, lector de datos
 			
+			MySqlDataReader mySqlDataReader2; //Creamos otro DataReader
+			mySqlDataReader2 = mySqlCommand.ExecuteNonQuery(); // ExecuteNonQuery ejecuta el Update
+			
 			while(mySqlDataReader.Read()){ //Leemos todas las filas
 				Console.WriteLine (mySqlDataReader.GetString (0) + ", " + mySqlDataReader.GetString (1));
 			}
+			
+			while()
 			
 
 			
