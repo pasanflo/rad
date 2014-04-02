@@ -16,31 +16,32 @@ namespace PArticulo
 			"User Id=root;" +
 			"Password=sistemas";
 			
-			MySqlConnection mySqlConnection = new MySqlConnection(connectionString);
+			string command = "SELECT * FROM articulo";
 			
-			mySqlConnection.Open();
+			MySqlConnection mySqlConnection = new MySqlConnection(connectionString); //Crear conexión a bd
 			
-			string command = "SELECT nombre FROM articulo";
+			mySqlConnection.Open(); //Abrimos la conexión
 			
-			MySqlCommand mySqlCommand = new MySqlCommand(command);
+			MySqlCommand mySqlCommand = mySqlConnection.CreateCommand(); //Creamos comando SQL
+			mySqlCommand.CommandText = command; //Cambiamos el texto del comando SQL por command.
 			
-			MySqlDataReader mySqlDataReader;
-			mySqlDataReader = mySqlCommand.ExecuteReader();
+			MySqlDataReader mySqlDataReader; //Creamos un DataReader
+			mySqlDataReader = mySqlCommand.ExecuteReader(); // Nos devuelve un mySqlDataReader, lector de datos
 			
-			while(mySqlDataReader.Read()){
+			while(mySqlDataReader.Read()){ //Leemos todas las filas
 				Console.WriteLine (mySqlDataReader.GetString (0) + ", " + mySqlDataReader.GetString (1));
 			}
 			
 
 			
-			do {	
+/*			do {	
 			if (mySqlConnection.State == ConnectionState.Open) {
 			Console.WriteLine ("Conexión establecida.");
 			} else {
 			Console.WriteLine ("...");
 			}
 			} while (mySqlConnection.State == ConnectionState.Closed);
-			
+*/			
 			mySqlConnection.Close();
 
 		}
