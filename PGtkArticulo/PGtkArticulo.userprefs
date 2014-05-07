@@ -1,0 +1,14 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="PGtkArticulo\MainWindow.cs">
+    <Files>
+      <File FileName="PGtkArticulo\Main.cs" Line="12" Column="10" />
+      <File FileName="PGtkArticulo\MainWindow.cs" Line="1" Column="1" />
+      <File FileName="PGtkArticulo\AssemblyInfo.cs" Line="14" Column="32" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
