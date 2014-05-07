@@ -1,58 +1,56 @@
-using System;
 using Gtk;
+using MySql.Data.MySqlClient;
+using System;
 using System.Data;
 using System.Collections.Generic;
 
 using Serpis.Ad;
 
-namespace Ad.Serpis{
-
 public partial class MainWindow: Gtk.Window
 {	
+	private MySqlConnection mySqlConnection;
+
 	public MainWindow (): base (Gtk.WindowType.Toplevel)
 	{
 		Build ();
+		
+		IDbCommand selectCommand = App.Instance.DbConnection.CreateCommand ();
+		
+		selectCommand.CommandText = "SELECT * FROM articulo";
+		IDataReader dataReader = selectDbCommand.ExecuteReader();
+		
+		addColumns(dataReader);
+		
+		ListStore listStore = new ListStore(typeof(string));
+		
+		treeView.Model = listStore;
+		fillListStore(listStore, dataReader);
+		dataReader.Close();
 
-		mySqlConnection = new MySqlConnection("Server=localhost;Database=dbprueba;User Id=root;Password=sistemas");
-		mySqlConnection.Open ();
+	}
+	
+	private ListStore createListStore(int fieldCount) {
 
-		string selectSql = 
-				"SELECT articulo.id, articulo.nombre FROM articulo";
-		TreeViewHelper treeViewHelper = new TreeViewHelper(treeView, mySqlConnection, selectSql);
+		Type[] types = new Type[fieldCount];
 
-		ListStore listStore = treeViewHelper.ListStore;
+		for (int index = 0; index < fieldCount; index++)
 
-		editAction.Sensitive = false;
-		deleteAction.Sensitive = false;
+			types[index] = typeof(string);
 
-		editAction.Activated += delegate {
-			if (treeView.Selection.CountSelectedRows() == 0)
-				return;
-			TreeIter treeIter;
-			treeView.Selection.GetSelected(out treeIter);
-			object id = listStore.GetValue (treeIter, 0);
-			object nombre = listStore.GetValue (treeIter, 1);
+		return new ListStore(types);
 
-		};
+	}
+	
+	private void addColumns (IDataReader dataReader){
+		for (int index = 0; index < dataReader.FieldCount; index++)
+			treeView.AppendColumn(dataReader.GetName(index), new CellRendererText(),"text", index);
+	}
+	
+	private void fillListStore (ListStore listStore, IDataReader dataReader){
+		while(dataReader.Read ()){
+			
+		}
 
-		deleteAction.Activated += delegate {
-			if (treeView.Selection.CountSelectedRows() == 0)
-				return;
-			TreeIter treeIter;
-			treeView.Selection.GetSelected(out treeIter);
-			object id = listStore.GetValue (treeIter, 0);
-
-			MySqlCommand deleteMySqlCommand = mySqlConnection.CreateCommand();
-			deleteMySqlCommand.CommandText = "delete from articulo where id=" + id;
-			deleteMySqlCommand.ExecuteNonQuery();
-		};
-
-		treeView.Selection.Changed += delegate {
-			bool hasSelectedRows = treeView.Selection.CountSelectedRows() > 0;
-			editAction.Sensitive = hasSelectedRows;
-			deleteAction.Sensitive = hasSelectedRows;
-		};
-				
 	}
 
 	protected void OnDeleteEvent (object sender, DeleteEventArgs a)
@@ -62,7 +60,4 @@ public partial class MainWindow: Gtk.Window
 
 		mySqlConnection.Close ();
 	}
-	}
-	
-
 }

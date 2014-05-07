@@ -27,8 +27,8 @@ namespace PArticulo
 			
 			MySqlCommand mySqlCommandChange = mySqlConnection.CreateCommand(); //Creamos comando SQL
 			mySqlCommandChange.CommandText = "UPDATE articulo SET nombre=@nombre WHERE id=1"; //Cambiamos el texto del comando SQL por command.
-			MysqlParameter mySqlParameter = mySqlCommandChange.CreateParameter();
-			mySqlParameter.Parameter = "nombre";
+			MySqlParameter mySqlParameter = mySqlCommandChange.CreateParameter();
+			mySqlParameter.ParameterName = "nombre";
 			mySqlParameter.Value = DateTime.Now.ToString();
 			mySqlCommandChange.Parameters.Add(mySqlParameter);
 			
@@ -37,7 +37,7 @@ namespace PArticulo
 			//mySqlDataReader = mySqlCommand.ExecuteReader(); // Nos devuelve un mySqlDataReader, lector de datos
 			
 			MySqlDataReader mySqlDataReaderChange; //Creamos otro DataReader
-			mySqlDataReaderChange = mySqlCommandChange.ExecuteNonQuery();
+			//mySqlDataReaderChange = mySqlCommandChange.ExecuteNonQuery();
 			// ExecuteNonQuery ejecuta el Update
 			mySqlDataReaderChange.Close();
 			
