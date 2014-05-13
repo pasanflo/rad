@@ -1,7 +1,7 @@
 using System;
 using Gtk;
 
-namespace PGtkArticulo
+namespace Serpis.Ad
 {
 	class MainClass
 	{

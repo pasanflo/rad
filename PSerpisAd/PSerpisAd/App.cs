@@ -11,7 +11,7 @@ namespace Serpis.Ad
 			get {return instance;}
 		}
 
-		private App () {
+		private App() {
 		}
 		
 		private IDbConnection dbConnection;
