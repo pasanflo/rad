@@ -13,7 +13,7 @@ namespace Serpis.Ad
 		private global::Gtk.Toolbar toolbar1;
 		private global::Gtk.ScrolledWindow GtkScrolledWindow;
 		private global::Gtk.TreeView treeView;
-
+		
 		protected virtual void Build ()
 		{
 			global::Stetic.Gui.Initialize (this);

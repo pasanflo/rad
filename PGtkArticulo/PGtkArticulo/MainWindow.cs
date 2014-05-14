@@ -12,16 +12,14 @@ namespace Serpis.Ad
 {
 	public partial class MainWindow: Gtk.Window
 	{	
-		private MySqlConnection mySqlConnection;
 
 		public MainWindow (): base (Gtk.WindowType.Toplevel)
 		{
 			Build ();
 
-			IDbConnection dbConnection = new IDbConnection();
-			dbConnection.Open();
-			IDbCommand selectCommand = App.Instance.CreateCommand();
-		
+			App.Instance.DbConnection = new MySqlConnection("user=root;password=sistemas;database=dbrepaso;server=localhost");
+			
+			IDbCommand selectCommand = App.Instance.DbConnection.CreateCommand ();
 			selectCommand.CommandText = "SELECT * FROM articulo";
 			IDataReader dataReader = selectCommand.ExecuteReader ();
 		
@@ -67,7 +65,7 @@ namespace Serpis.Ad
 			Application.Quit ();
 			a.RetVal = true;
 
-			mySqlConnection.Close ();
+			//mySqlConnection.Close ();
 		}
 	}
 }
