@@ -67,6 +67,7 @@
     </Reference>
     <Reference Include="MySql.Data">
       <HintPath>..\..\..\..\MySqlData\bin\MySql.Data.dll</HintPath>
+      <Package>mysql-connector-net</Package>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -80,6 +81,7 @@
     <Compile Include="Main.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="gtk-gui\Serpis.Ad.MainWindow.cs" />
+    <Compile Include="TreeViewFiller.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

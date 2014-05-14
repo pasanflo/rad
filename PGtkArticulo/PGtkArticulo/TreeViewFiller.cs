@@ -1,34 +1,25 @@
 using Gtk;
-using MySql;
+using System;
+using System.Collections.Generic;
+using System.Data;
 using MySql.Data;
 using MySql.Data.MySqlClient;
-using System;
-using System.Data;
-using System.Collections.Generic;
 
 using PSerpisAd;
 
 namespace Serpis.Ad
 {
-	public partial class MainWindow: Gtk.Window
-	{	
-
-		public MainWindow (): base (Gtk.WindowType.Toplevel)
+	public class TreeViewFiller
+	{
+		public static void Filler (TreeView treeView, IDbConnection dbConnection, string selectText)
 		{
-			Build ();
-			TreeViewFiller.Filler (treeView, App.Instance.DbConnection, "SELECT * FROM articulo");
-			
-			
-			/*
-
-			App.Instance.DbConnection = new MySqlConnection("user=root;password=sistemas;database=dbrepaso;server=localhost");
-			
 			IDbCommand selectCommand = App.Instance.DbConnection.CreateCommand ();
 			selectCommand.CommandText = "SELECT * FROM articulo";
 			IDataReader dataReader = selectCommand.ExecuteReader ();
 		
-			addColumns (dataReader);
-		
+			for (int index = 0; index < dataReader.FieldCount; index++)
+			treeView.AppendColumn (dataReader.GetName (index), new CellRendererText (), "text", index);
+			
 			ListStore listStore = new ListStore (typeof(string));
 		
 			treeView.Model = listStore;
@@ -52,11 +43,10 @@ namespace Serpis.Ad
 
 		private void addColumns (IDataReader dataReader)
 		{
-			for (int index = 0; index < dataReader.FieldCount; index++)
-				treeView.AppendColumn (dataReader.GetName (index), new CellRendererText (), "text", index);
+
 		}
 
-		private void fillListStore (ListStore listStore, IDataReader dataReader)
+		private static void fillListStore (ListStore listStore, IDataReader dataReader)
 		{
 			while (dataReader.Read ()) {
 				List<string> values = new List<string>();
@@ -65,14 +55,7 @@ namespace Serpis.Ad
 				
 				List.AppendValues.ToString();
 			}
-*/
-		}
-
-		protected void OnDeleteEvent (object sender, DeleteEventArgs a)
-		{
-			Application.Quit ();
-			a.RetVal = true;
-
 		}
 	}
 }
+
